@@ -1,0 +1,119 @@
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  username: String!
+  email: String!
+  password: String!
+}
+
+type Job {
+  id: ID!
+  name: String!
+  jobType: String!
+  description: [String]
+  minSalary: String!
+  designation: String!
+  qualifications: String!
+  requirements: [String]
+  lastDate: String!
+  startDate: String!
+  benefits: [String]
+  eligibility: [String]
+}
+
+type School {
+  id: ID!
+  name: String!
+  description: [String]
+  contactInfo: String!
+  address: String!
+  standard: [String]
+  board: String!
+}
+
+type College {
+  id: ID!
+  name: String!
+  description: [String]
+  contactInfo: String!
+  address: String!
+  course: [String]
+}
+
+type University {
+  id: ID!
+  name: String!
+  description: [String]
+  contactInfo: String!
+  address: String!
+  branch: [String]
+}
+
+type Query {
+  findAllUsers: [User]
+  findAllSchools: [School]
+  findAllJobs: [Job]
+  findAllUniversities: [University]
+  findAllColleges: [College]
+  user(id: String): User
+  job(id: String): Job
+  school(id: String): School
+  college(id: String): College
+  university(id: String): University
+  searchSchools(val: String): [School]
+}
+
+type Mutation {
+  createUser(
+    firstName: String!
+    lastName: String!
+    username: String!
+    email: String!
+    password: String!
+  ): User
+
+  loginUser(
+    email: String!
+    password: String!
+  ): User
+
+  addJob(
+    name: String!
+    jobType: String!
+    description: String!
+    minSalary: String!
+    designation: String!
+    qualifications: String!
+    requirements: String!
+    lastDate: String!
+    startDate: String!
+    benefits: String!
+    eligibility: String!
+  ): String
+
+  addSchool(
+    name: String!
+    description: [String]
+    contactInfo: String!
+    address: String!
+    standard: [String]
+    board: String!
+  ): String
+
+  addCollege(
+    name: String!
+    description: [String]
+    contactInfo: String!
+    address: String!
+    course: [String]
+  ): String
+
+  addUniversity(
+    name: String!
+    description: [String]
+    contactInfo: String!
+    address: String!
+    branch: [String]
+  ): String
+}
