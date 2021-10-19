@@ -62,6 +62,10 @@ type Query {
   college(id: String): College
   university(id: String): University
   searchSchools(val: String): [School]
+  searchJobs(val: String): [Job]
+  searchColleges(val: String): [College]
+  searchUniversities(val: String): [University]
+  searchUsers(val: String): [User]
 }
 
 type Mutation {

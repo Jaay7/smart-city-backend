@@ -79,4 +79,20 @@ public class Query implements GraphQLQueryResolver {
     return schoolRepository.find(val);
   }
 
+  public Iterable<College> searchColleges(String val) {
+    return collegeRepository.find(val);
+  }
+
+  public Iterable<University> searchUniversities(String val) {
+    return universityRepository.find(val);
+  }
+
+  public Iterable<Job> searchJobs(String val) {
+    return jobRepository.find(val);
+  }
+
+  public Iterable<User> searchUsers(String val) {
+    return userRepository.find(val);
+  }
+
 }
