@@ -1,6 +1,5 @@
 package com.example.smartcitybackend.repository;
 
-import java.util.List;
 
 import com.example.smartcitybackend.model.School;
 
@@ -17,6 +16,8 @@ public interface SchoolRepository extends MongoRepository<School, String> {
   @Query("{ 'name': { $regex: ?0, $options: 'i' } }")
   Iterable<School> find(String val);
 
+  @Query("{ name: ?0 }")
+  School findByName(String name);
 
   // List<School> find(Query query, Class<School> class1);
 

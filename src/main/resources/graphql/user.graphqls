@@ -22,6 +22,51 @@ type Job {
   eligibility: [String]
 }
 
+type RestaurantMenu {
+  id: ID!
+  itemName: String!
+  itemDescription: [String]
+  itemPrice: String!
+  itemImage: String
+  itemCategory: String!
+  itemRestaurantId: String!
+}
+
+type Reviews {
+  id: ID!
+  reviewText: String!
+  userId: String!
+  itemId: String!
+  userName: String!
+  userImage: String
+  userReviewDate: String
+  userReviewTime: String
+}
+
+type Restaurants {
+  id: ID!
+  name: String!
+  address: String!
+  phone: String!
+  email: String!
+  website: String
+  image: String
+  description: [String]
+  rating: Int
+  price: String!
+  open: String!
+  close: String!
+  lat: String
+  lng: String
+  type: String
+  cuisine: String
+  tags: [String]
+  reviewsCount: Int
+  photos: String
+  photosCount: Int
+  menuCount: Int
+}
+
 type School {
   id: ID!
   name: String!
@@ -56,16 +101,21 @@ type Query {
   findAllJobs: [Job]
   findAllUniversities: [University]
   findAllColleges: [College]
+  findAllRestaurants: [Restaurants]
   user(id: String): User
   job(id: String): Job
   school(id: String): School
   college(id: String): College
   university(id: String): University
+  restaurant(id: String): Restaurants
   searchSchools(val: String): [School]
   searchJobs(val: String): [Job]
   searchColleges(val: String): [College]
   searchUniversities(val: String): [University]
   searchUsers(val: String): [User]
+  searchRestaurants(val: String): [Restaurants]
+  getMenu(id: String): [RestaurantMenu]
+  getReviews(id: String): [Reviews]
 }
 
 type Mutation {
@@ -85,15 +135,15 @@ type Mutation {
   addJob(
     name: String!
     jobType: String!
-    description: String!
+    description: [String]
     minSalary: String!
     designation: String!
     qualifications: String!
-    requirements: String!
+    requirements: [String]
     lastDate: String!
     startDate: String!
-    benefits: String!
-    eligibility: String!
+    benefits: [String]
+    eligibility: [String]
   ): String
 
   addSchool(
@@ -119,5 +169,47 @@ type Mutation {
     contactInfo: String!
     address: String!
     branch: [String]
+  ): String
+
+  addRestaurant(
+    name: String!
+    address: String!
+    phone: String!
+    email: String!
+    website: String
+    image: String
+    description: [String]
+    rating: Int
+    price: String!
+    open: String!
+    close: String!
+    lat: String
+    lng: String
+    type: String
+    cuisine: String
+    tags: [String]
+    reviewsCount: Int
+    photos: String
+    photosCount: Int
+    menuCount: Int
+  ): String
+  
+  addRestaurantMenu(
+    itemName: String!
+    itemDescription: [String]
+    itemPrice: String!
+    itemImage: String
+    itemCategory: String!
+    itemRestaurantId: String!
+  ): String
+
+  addReview(
+    reviewText: String!
+    userId: String!
+    itemId: String!
+    userName: String!
+    userImage: String
+    userReviewDate: String
+    userReviewTime: String
   ): String
 }

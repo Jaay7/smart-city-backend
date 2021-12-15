@@ -12,4 +12,7 @@ public interface JobRepository extends MongoRepository<Job, String> {
   
   @Query("{ 'name': { $regex: ?0, $options: 'i' } }")
   Iterable<Job> find(String val);
+
+  @Query("{ 'name': ?0 }")
+  Job findByName(String name);
 }

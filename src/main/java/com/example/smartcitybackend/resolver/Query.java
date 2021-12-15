@@ -1,15 +1,20 @@
 package com.example.smartcitybackend.resolver;
 
-import java.util.regex.Pattern;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.example.smartcitybackend.model.User;
 import com.example.smartcitybackend.model.Job;
+import com.example.smartcitybackend.model.RestaurantMenu;
+import com.example.smartcitybackend.model.Restaurants;
+import com.example.smartcitybackend.model.Reviews;
 import com.example.smartcitybackend.model.School;
 import com.example.smartcitybackend.model.University;
 import com.example.smartcitybackend.model.College;
 import com.example.smartcitybackend.repository.CollegeRepository;
 import com.example.smartcitybackend.repository.JobRepository;
+import com.example.smartcitybackend.repository.RestaurantMenuRepository;
+import com.example.smartcitybackend.repository.RestaurantsRepository;
+import com.example.smartcitybackend.repository.ReviewRepository;
 import com.example.smartcitybackend.repository.SchoolRepository;
 import com.example.smartcitybackend.repository.UniversityRepository;
 import com.example.smartcitybackend.repository.UserRepository;
@@ -25,14 +30,20 @@ public class Query implements GraphQLQueryResolver {
   private SchoolRepository schoolRepository;
   private CollegeRepository collegeRepository;
   private UniversityRepository universityRepository;
+  private RestaurantsRepository restaurantsRepository;
+  private RestaurantMenuRepository restaurantMenuRepository;
+  private ReviewRepository reviewRepository;
 
   @Autowired
-  public Query(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository) {
+  public Query(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository, RestaurantsRepository restaurantsRepository, RestaurantMenuRepository restaurantMenuRepository, ReviewRepository reviewRepository) {
     this.userRepository = userRepository;
     this.jobRepository = jobRepository;
     this.schoolRepository = schoolRepository;
     this.collegeRepository = collegeRepository;
     this.universityRepository = universityRepository;
+    this.restaurantsRepository = restaurantsRepository;
+    this.restaurantMenuRepository = restaurantMenuRepository;
+    this.reviewRepository = reviewRepository;
   }
 
   public Iterable<User> findAllUsers() {
@@ -55,6 +66,10 @@ public class Query implements GraphQLQueryResolver {
     return universityRepository.findAll();
   }
 
+  public Iterable<Restaurants> findAllRestaurants() {
+    return restaurantsRepository.findAll();
+  }
+
   public User user(String id) {
     return userRepository.findOneById(new ObjectId(id));
   }
@@ -75,6 +90,10 @@ public class Query implements GraphQLQueryResolver {
     return universityRepository.findOneById(new ObjectId(id));
   }
 
+  public Restaurants restaurant(String id) {
+    return restaurantsRepository.findOneById(new ObjectId(id));
+  }
+
   public Iterable<School> searchSchools(String val) {
     return schoolRepository.find(val);
   }
@@ -93,6 +112,18 @@ public class Query implements GraphQLQueryResolver {
 
   public Iterable<User> searchUsers(String val) {
     return userRepository.find(val);
+  }
+
+  public Iterable<Restaurants> searchRestaurants(String val) {
+    return restaurantsRepository.find(val);
+  }
+
+  public Iterable<RestaurantMenu> getMenu(String id) {
+    return restaurantMenuRepository.findByRestaurantId(id);
+  }
+
+  public Iterable<Reviews> getReviews(String id) {
+    return reviewRepository.findByItemId(id);
   }
 
 }

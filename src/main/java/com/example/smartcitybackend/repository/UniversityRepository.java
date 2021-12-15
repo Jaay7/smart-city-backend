@@ -13,4 +13,6 @@ public interface UniversityRepository extends MongoRepository<University, String
   @Query("{ 'name': { $regex: ?0, $options: 'i' } }")
   Iterable<University> find(String val);
 
+  @Query("{ name: ?0 }")
+  University findByName(String name);
 }
