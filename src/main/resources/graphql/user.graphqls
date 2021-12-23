@@ -4,7 +4,9 @@ type User {
   lastName: String!
   username: String!
   email: String!
-  password: String!
+  password: String
+  role: String!
+  userType: String!
 }
 
 type Job {
@@ -124,7 +126,9 @@ type Mutation {
     lastName: String!
     username: String!
     email: String!
-    password: String!
+    password: String
+    role: String!
+    userType: String!
   ): User
 
   loginUser(

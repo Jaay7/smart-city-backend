@@ -12,6 +12,8 @@ public class User {
   private String username;
   private String email;
   private String password;
+  private String role;
+  private String userType;
 
   public User () {}
 
@@ -19,12 +21,14 @@ public class User {
     this.id = id;
   }
 
-  public User (String firstName, String lastName, String username, String email, String password) {
+  public User (String firstName, String lastName, String username, String email, String password, String role, String userType) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.username = username;
     this.email = email;
     this.password = password;
+    this.role = role;
+    this.userType = userType;
   }
 
   public String getId() {
@@ -64,8 +68,24 @@ public class User {
     this.password = password;
   }
 
+  public String getRole() {
+    return role;
+  }
+
+  public void setRole(String role) {
+    this.role = role;
+  }
+
+  public String getUserType() {
+    return userType;
+  }
+
+  public void setUserType(String userType) {
+    this.userType = userType;
+  }
+
   @Override
   public String toString() {
-    return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ",username=" + username + ",email=" + email + "]";
+    return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ",username=" + username + ",email=" + email + ",password=" + password + ",role=" + role + ",userType=" + userType + "]";
   }
 }

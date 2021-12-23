@@ -46,10 +46,10 @@ public class Mutation implements GraphQLMutationResolver {
     this.reviewRepository = reviewRepository;
   }
 
-  public User createUser(String firstName, String lastName, String username, String email, String password) {
+  public User createUser(String firstName, String lastName, String username, String email, String password, String role, String userType) {
     User user = new User();
 
-    User checkUser = userRepository.findByEmail(email, password);
+    User checkUser = userRepository.findByEmail(email);
     
     if (checkUser == null) {
       user.setFirstName(firstName);
@@ -57,6 +57,8 @@ public class Mutation implements GraphQLMutationResolver {
       user.setUsername(username);
       user.setEmail(email);
       user.setPassword(password);
+      user.setRole(role);
+      user.setUserType(userType);
 
       userRepository.save(user);
       return user;
@@ -66,7 +68,7 @@ public class Mutation implements GraphQLMutationResolver {
   }
 
   public User loginUser(String email, String password) {
-    User user = userRepository.findByEmail(email, password);
+    User user = userRepository.findByEmail(email);
     if (user != null) {
       if(user.getPassword().equals(password)) {
         return user;

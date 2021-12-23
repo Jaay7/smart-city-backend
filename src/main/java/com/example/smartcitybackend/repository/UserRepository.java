@@ -10,7 +10,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
   User findOneById(ObjectId id);
 
-  User findByEmail(String email, String password);
+  User findByEmail(String email);
   
   @Query("{ 'name': { $regex: ?0, $options: 'i' } }")
   Iterable<User> find(String val);
