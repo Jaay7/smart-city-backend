@@ -11,17 +11,19 @@ public class RestaurantMenu {
   private String itemPrice;
   private String itemImage;
   private String itemCategory;
+  private List<String> itemTags = new ArrayList<String>();
   private String itemRestaurantId;
 
   public RestaurantMenu() {
   }
 
-  public RestaurantMenu(String itemName, List<String> itemDescription, String itemPrice, String itemImage, String itemCategory, String itemRestaurantId) {
+  public RestaurantMenu(String itemName, List<String> itemDescription, String itemPrice, String itemImage, String itemCategory, List<String> itemTags, String itemRestaurantId) {
     this.itemName = itemName;
     this.itemDescription = itemDescription;
     this.itemPrice = itemPrice;
     this.itemImage = itemImage;
     this.itemCategory = itemCategory;
+    this.itemTags = itemTags;
     this.itemRestaurantId = itemRestaurantId;
   }
 
@@ -81,6 +83,12 @@ public class RestaurantMenu {
     this.itemRestaurantId = itemRestaurantId;
   }
 
-  
+  public List<String> getItemTags() {
+    return itemTags;
+  }
+
+  public void setItemTags(List<String> itemTags) {
+    this.itemTags = itemTags;
+  }
   
 }

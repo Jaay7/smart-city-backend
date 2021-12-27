@@ -198,7 +198,7 @@ public class Mutation implements GraphQLMutationResolver {
     }
   }
 
-  public String addRestaurantMenu(String itemName, List<String> itemDescription, String itemPrice, String itemImage, String itemCategory, String itemRestaurantId) {
+  public String addRestaurantMenu(String itemName, List<String> itemDescription, String itemPrice, String itemImage, String itemCategory, List<String> itemTags, String itemRestaurantId) {
     RestaurantMenu restaurantMenu = new RestaurantMenu();
 
     RestaurantMenu checkRestaurantMenuById = restaurantMenuRepository.findByItemId(new ObjectId(itemRestaurantId));
@@ -211,6 +211,7 @@ public class Mutation implements GraphQLMutationResolver {
         restaurantMenu.setItemPrice(itemPrice);
         restaurantMenu.setItemImage(itemImage);
         restaurantMenu.setItemCategory(itemCategory);
+        restaurantMenu.setItemTags(itemTags);
         restaurantMenu.setItemRestaurantId(itemRestaurantId);
         restaurantMenuRepository.save(restaurantMenu);
 
