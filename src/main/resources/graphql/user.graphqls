@@ -117,8 +117,11 @@ type Query {
   searchUniversities(val: String): [University]
   searchUsers(val: String): [User]
   searchRestaurants(val: String): [Restaurants]
+  searchRestaurantMenu(val: String): [RestaurantMenu]
   getMenu(id: String): [RestaurantMenu]
   getReviews(id: String): [Reviews]
+  getRestaurantsByTags(tags: [String]) : [Restaurants]
+  getMenuByTags(id: String, tags: [String]): [RestaurantMenu]
 }
 
 type Mutation {

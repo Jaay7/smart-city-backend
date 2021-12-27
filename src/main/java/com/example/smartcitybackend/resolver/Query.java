@@ -1,5 +1,6 @@
 package com.example.smartcitybackend.resolver;
 
+import java.util.*;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.example.smartcitybackend.model.User;
@@ -124,6 +125,18 @@ public class Query implements GraphQLQueryResolver {
 
   public Iterable<Reviews> getReviews(String id) {
     return reviewRepository.findByItemId(id);
+  }
+
+  public Iterable<RestaurantMenu> searchRestaurantMenu(String val) {
+    return restaurantMenuRepository.find(val);
+  }
+
+  public Iterable<RestaurantMenu> getMenuByTags(String id, List<String> tags) {
+    return restaurantMenuRepository.findByItemTags(id, tags);
+  }
+
+  public Iterable<Restaurants> getRestaurantsByTags(List<String> tags) {
+    return restaurantsRepository.findByTags(tags);
   }
 
 }

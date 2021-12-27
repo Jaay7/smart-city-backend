@@ -1,5 +1,7 @@
 package com.example.smartcitybackend.repository;
 
+import java.util.*;
+
 import com.example.smartcitybackend.model.RestaurantMenu;
 
 import org.bson.types.ObjectId;
@@ -18,4 +20,10 @@ public interface RestaurantMenuRepository extends MongoRepository<RestaurantMenu
 
   @Query("{ 'itemRestaurantId': ?0 }")
   Iterable<RestaurantMenu> findByRestaurantId(String id);
+
+  @Query("{ 'itemName': { $regex: ?0, $options: 'i' } }")
+  Iterable<RestaurantMenu> find(String val);
+
+  @Query("{ 'itemRestaurantId': ?0, 'itemTags': { $all: ?1 } }")
+  Iterable<RestaurantMenu> findByItemTags(String id, List<String> tags);
 }
