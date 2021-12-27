@@ -98,6 +98,35 @@ type University {
   branch: [String]
 }
 
+type touristPlaces {
+  id: ID!
+  tourismName: String!
+  phone: String!
+  email: String!
+  website: String
+  city: String!
+  state: String!
+  country: String!
+  continent: String!
+  currency: String!
+  language: String!
+  timezone: String
+  image: String
+  tourismDescription: [String]
+  rating: Int
+  price: String!
+  open: String!
+  close: String!
+  lat: String
+  lng: String
+  tourismType: String
+  tourismSubType: String
+  tourismTags: [String]
+  reviewsCount: Int
+  photos: [String]
+  photosCount: Int
+}
+
 type Query {
   findAllUsers: [User]
   findAllSchools: [School]
@@ -105,12 +134,14 @@ type Query {
   findAllUniversities: [University]
   findAllColleges: [College]
   findAllRestaurants: [Restaurants]
+  findAllTouristPlaces: [touristPlaces]
   user(id: String): User
   job(id: String): Job
   school(id: String): School
   college(id: String): College
   university(id: String): University
   restaurant(id: String): Restaurants
+  touristPlace(id: String): touristPlaces
   searchSchools(val: String): [School]
   searchJobs(val: String): [Job]
   searchColleges(val: String): [College]
@@ -118,10 +149,15 @@ type Query {
   searchUsers(val: String): [User]
   searchRestaurants(val: String): [Restaurants]
   searchRestaurantMenu(val: String): [RestaurantMenu]
+  searchTouristPlaces(val: String): [touristPlaces]
   getMenu(id: String): [RestaurantMenu]
   getReviews(id: String): [Reviews]
   getRestaurantsByTags(tags: [String]) : [Restaurants]
   getMenuByTags(id: String, tags: [String]): [RestaurantMenu]
+  getTouristPlacesByTags(tags: [String]) : [touristPlaces]
+  getTouristPlacesByCity(city: String) : [touristPlaces]
+  getTouristPlacesByState(state: String) : [touristPlaces]
+  getTouristPlacesByCountry(country: String) : [touristPlaces]
 }
 
 type Mutation {
@@ -220,5 +256,33 @@ type Mutation {
     userImage: String
     userReviewDate: String
     userReviewTime: String
+  ): String
+
+  addTouristPlace(
+    tourismName: String!
+    phone: String!
+    email: String!
+    website: String
+    city: String!
+    state: String!
+    country: String!
+    continent: String!
+    currency: String!
+    language: String!
+    timezone: String
+    image: String
+    tourismDescription: [String]
+    rating: Int
+    price: String!
+    open: String!
+    close: String!
+    lat: String
+    lng: String
+    tourismType: String
+    tourismSubType: String
+    tourismTags: [String]
+    reviewsCount: Int
+    photos: [String]
+    photosCount: Int
   ): String
 }

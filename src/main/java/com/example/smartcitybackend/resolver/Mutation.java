@@ -8,6 +8,7 @@ import com.example.smartcitybackend.model.RestaurantMenu;
 import com.example.smartcitybackend.model.Restaurants;
 import com.example.smartcitybackend.model.Reviews;
 import com.example.smartcitybackend.model.School;
+import com.example.smartcitybackend.model.TouristPlaces;
 import com.example.smartcitybackend.model.University;
 import com.example.smartcitybackend.model.User;
 import com.example.smartcitybackend.repository.CollegeRepository;
@@ -16,6 +17,7 @@ import com.example.smartcitybackend.repository.RestaurantMenuRepository;
 import com.example.smartcitybackend.repository.RestaurantsRepository;
 import com.example.smartcitybackend.repository.ReviewRepository;
 import com.example.smartcitybackend.repository.SchoolRepository;
+import com.example.smartcitybackend.repository.TouristPlaceRepository;
 import com.example.smartcitybackend.repository.UniversityRepository;
 import com.example.smartcitybackend.repository.UserRepository;
 
@@ -33,9 +35,10 @@ public class Mutation implements GraphQLMutationResolver {
   private RestaurantsRepository restaurantsRepository;
   private RestaurantMenuRepository restaurantMenuRepository;
   private ReviewRepository reviewRepository;
+  private TouristPlaceRepository touristPlaceRepository;
 
   @Autowired
-  public Mutation(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository, RestaurantsRepository restaurantsRepository, RestaurantMenuRepository restaurantMenuRepository, ReviewRepository reviewRepository) {
+  public Mutation(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository, RestaurantsRepository restaurantsRepository, RestaurantMenuRepository restaurantMenuRepository, ReviewRepository reviewRepository, TouristPlaceRepository touristPlaceRepository) {
     this.userRepository = userRepository;
     this.jobRepository = jobRepository;
     this.schoolRepository = schoolRepository;
@@ -44,6 +47,7 @@ public class Mutation implements GraphQLMutationResolver {
     this.restaurantsRepository = restaurantsRepository;
     this.restaurantMenuRepository = restaurantMenuRepository;
     this.reviewRepository = reviewRepository;
+    this.touristPlaceRepository = touristPlaceRepository;
   }
 
   public User createUser(String firstName, String lastName, String username, String email, String password, String role, String userType) {
@@ -243,6 +247,46 @@ public class Mutation implements GraphQLMutationResolver {
       return "Review successfully added!";
     } else {
       return "User or Restaurant doesn't exist!";
+    }
+  }
+
+  public String addTouristPlace( String tourismName, String phone, String email, String website, String city, String state, String country, 
+    String continent, String currency, String language, String timezone, String image, List<String> tourismDescription, Integer rating, 
+    String price, String open, String close, String lat, String lng, String tourismType, String tourismSubType, List<String> tourismTags, Integer reviewsCount, List<String> photos, Integer photosCount
+  ) {
+    if ( touristPlaceRepository.findByName(tourismName) != null) {
+      return "Tourist Place already exists!";
+    } else {
+      TouristPlaces touristPlace = new TouristPlaces();
+
+      touristPlace.setTourismName(tourismName);
+      touristPlace.setPhone(phone);
+      touristPlace.setEmail(email);
+      touristPlace.setWebsite(website);
+      touristPlace.setCity(city);
+      touristPlace.setState(state);
+      touristPlace.setCountry(country);
+      touristPlace.setContinent(continent);
+      touristPlace.setCurrency(currency);
+      touristPlace.setLanguage(language);
+      touristPlace.setTimezone(timezone);
+      touristPlace.setImage(image);
+      touristPlace.setTourismDescription(tourismDescription);
+      touristPlace.setRating(rating);
+      touristPlace.setPrice(price);
+      touristPlace.setOpen(open);
+      touristPlace.setClose(close);
+      touristPlace.setLat(lat);
+      touristPlace.setLng(lng);
+      touristPlace.setTourismType(tourismType);
+      touristPlace.setTourismSubType(tourismSubType);
+      touristPlace.setTourismTags(tourismTags);
+      touristPlace.setReviewsCount(reviewsCount);
+      touristPlace.setPhotos(photos);
+      touristPlace.setPhotosCount(photosCount);
+      touristPlaceRepository.save(touristPlace);
+
+      return "Tourist Place successfully added!";
     }
   }
 

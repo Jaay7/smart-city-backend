@@ -9,6 +9,7 @@ import com.example.smartcitybackend.model.RestaurantMenu;
 import com.example.smartcitybackend.model.Restaurants;
 import com.example.smartcitybackend.model.Reviews;
 import com.example.smartcitybackend.model.School;
+import com.example.smartcitybackend.model.TouristPlaces;
 import com.example.smartcitybackend.model.University;
 import com.example.smartcitybackend.model.College;
 import com.example.smartcitybackend.repository.CollegeRepository;
@@ -17,6 +18,7 @@ import com.example.smartcitybackend.repository.RestaurantMenuRepository;
 import com.example.smartcitybackend.repository.RestaurantsRepository;
 import com.example.smartcitybackend.repository.ReviewRepository;
 import com.example.smartcitybackend.repository.SchoolRepository;
+import com.example.smartcitybackend.repository.TouristPlaceRepository;
 import com.example.smartcitybackend.repository.UniversityRepository;
 import com.example.smartcitybackend.repository.UserRepository;
 
@@ -34,9 +36,10 @@ public class Query implements GraphQLQueryResolver {
   private RestaurantsRepository restaurantsRepository;
   private RestaurantMenuRepository restaurantMenuRepository;
   private ReviewRepository reviewRepository;
+  private TouristPlaceRepository touristPlaceRepository;
 
   @Autowired
-  public Query(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository, RestaurantsRepository restaurantsRepository, RestaurantMenuRepository restaurantMenuRepository, ReviewRepository reviewRepository) {
+  public Query(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository, RestaurantsRepository restaurantsRepository, RestaurantMenuRepository restaurantMenuRepository, ReviewRepository reviewRepository, TouristPlaceRepository touristPlaceRepository) {
     this.userRepository = userRepository;
     this.jobRepository = jobRepository;
     this.schoolRepository = schoolRepository;
@@ -45,6 +48,7 @@ public class Query implements GraphQLQueryResolver {
     this.restaurantsRepository = restaurantsRepository;
     this.restaurantMenuRepository = restaurantMenuRepository;
     this.reviewRepository = reviewRepository;
+    this.touristPlaceRepository = touristPlaceRepository;
   }
 
   public Iterable<User> findAllUsers() {
@@ -71,6 +75,10 @@ public class Query implements GraphQLQueryResolver {
     return restaurantsRepository.findAll();
   }
 
+  public Iterable<TouristPlaces> findAllTouristPlaces() {
+    return touristPlaceRepository.findAll();
+  }
+
   public User user(String id) {
     return userRepository.findOneById(new ObjectId(id));
   }
@@ -93,6 +101,10 @@ public class Query implements GraphQLQueryResolver {
 
   public Restaurants restaurant(String id) {
     return restaurantsRepository.findOneById(new ObjectId(id));
+  }
+
+  public TouristPlaces touristPlace(String id) {
+    return touristPlaceRepository.findOneById(new ObjectId(id));
   }
 
   public Iterable<School> searchSchools(String val) {
@@ -131,12 +143,32 @@ public class Query implements GraphQLQueryResolver {
     return restaurantMenuRepository.find(val);
   }
 
+  public Iterable<TouristPlaces> searchTouristPlaces(String val) {
+    return touristPlaceRepository.find(val);
+  }
+
   public Iterable<RestaurantMenu> getMenuByTags(String id, List<String> tags) {
     return restaurantMenuRepository.findByItemTags(id, tags);
   }
 
   public Iterable<Restaurants> getRestaurantsByTags(List<String> tags) {
     return restaurantsRepository.findByTags(tags);
+  }
+
+  public Iterable<TouristPlaces> getTouristPlacesByCity(String city) {
+    return touristPlaceRepository.findByCity(city);
+  }
+
+  public Iterable<TouristPlaces> getTouristPlacesByTags(List<String> tags) {
+    return touristPlaceRepository.findByTags(tags);
+  }
+  
+  public Iterable<TouristPlaces> getTouristPlacesByState(String state) {
+    return touristPlaceRepository.findByState(state);
+  }
+
+  public Iterable<TouristPlaces> getTouristPlacesByCountry(String country) {
+    return touristPlaceRepository.findByCountry(country);
   }
 
 }
