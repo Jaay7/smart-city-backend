@@ -1,11 +1,11 @@
 type User {
   id: ID!
-  firstName: String!
-  lastName: String!
+  firstName: String
+  lastName: String
   username: String!
-  email: String!
+  email: String
   password: String
-  role: String!
+  role: String
   userType: String!
 }
 
@@ -162,12 +162,12 @@ type Query {
 
 type Mutation {
   createUser(
-    firstName: String!
-    lastName: String!
+    firstName: String
+    lastName: String
     username: String!
-    email: String!
+    email: String
     password: String
-    role: String!
+    role: String
     userType: String!
   ): User
 
