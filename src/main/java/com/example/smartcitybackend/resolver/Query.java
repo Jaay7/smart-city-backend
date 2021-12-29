@@ -12,7 +12,9 @@ import com.example.smartcitybackend.model.School;
 import com.example.smartcitybackend.model.TouristPlaces;
 import com.example.smartcitybackend.model.University;
 import com.example.smartcitybackend.model.College;
+import com.example.smartcitybackend.model.FavouriteItems;
 import com.example.smartcitybackend.repository.CollegeRepository;
+import com.example.smartcitybackend.repository.FavouriteItemRepository;
 import com.example.smartcitybackend.repository.JobRepository;
 import com.example.smartcitybackend.repository.RestaurantMenuRepository;
 import com.example.smartcitybackend.repository.RestaurantsRepository;
@@ -37,9 +39,10 @@ public class Query implements GraphQLQueryResolver {
   private RestaurantMenuRepository restaurantMenuRepository;
   private ReviewRepository reviewRepository;
   private TouristPlaceRepository touristPlaceRepository;
+  private FavouriteItemRepository favouriteItemRepository;
 
   @Autowired
-  public Query(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository, RestaurantsRepository restaurantsRepository, RestaurantMenuRepository restaurantMenuRepository, ReviewRepository reviewRepository, TouristPlaceRepository touristPlaceRepository) {
+  public Query(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository, RestaurantsRepository restaurantsRepository, RestaurantMenuRepository restaurantMenuRepository, ReviewRepository reviewRepository, TouristPlaceRepository touristPlaceRepository, FavouriteItemRepository favouriteItemRepository) {
     this.userRepository = userRepository;
     this.jobRepository = jobRepository;
     this.schoolRepository = schoolRepository;
@@ -49,6 +52,7 @@ public class Query implements GraphQLQueryResolver {
     this.restaurantMenuRepository = restaurantMenuRepository;
     this.reviewRepository = reviewRepository;
     this.touristPlaceRepository = touristPlaceRepository;
+    this.favouriteItemRepository = favouriteItemRepository;
   }
 
   public Iterable<User> findAllUsers() {
@@ -77,6 +81,10 @@ public class Query implements GraphQLQueryResolver {
 
   public Iterable<TouristPlaces> findAllTouristPlaces() {
     return touristPlaceRepository.findAll();
+  }
+
+  public Iterable<FavouriteItems> findAllFavouriteItemsByUserId(String userId) {
+    return favouriteItemRepository.findByUserId( userId);
   }
 
   public User user(String id) {

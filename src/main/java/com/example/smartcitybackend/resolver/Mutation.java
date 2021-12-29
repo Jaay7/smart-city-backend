@@ -3,6 +3,7 @@ package com.example.smartcitybackend.resolver;
 import java.util.*;
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.example.smartcitybackend.model.College;
+import com.example.smartcitybackend.model.FavouriteItems;
 import com.example.smartcitybackend.model.Job;
 import com.example.smartcitybackend.model.RestaurantMenu;
 import com.example.smartcitybackend.model.Restaurants;
@@ -12,6 +13,7 @@ import com.example.smartcitybackend.model.TouristPlaces;
 import com.example.smartcitybackend.model.University;
 import com.example.smartcitybackend.model.User;
 import com.example.smartcitybackend.repository.CollegeRepository;
+import com.example.smartcitybackend.repository.FavouriteItemRepository;
 import com.example.smartcitybackend.repository.JobRepository;
 import com.example.smartcitybackend.repository.RestaurantMenuRepository;
 import com.example.smartcitybackend.repository.RestaurantsRepository;
@@ -36,9 +38,10 @@ public class Mutation implements GraphQLMutationResolver {
   private RestaurantMenuRepository restaurantMenuRepository;
   private ReviewRepository reviewRepository;
   private TouristPlaceRepository touristPlaceRepository;
+  private FavouriteItemRepository favouriteItemRepository;
 
   @Autowired
-  public Mutation(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository, RestaurantsRepository restaurantsRepository, RestaurantMenuRepository restaurantMenuRepository, ReviewRepository reviewRepository, TouristPlaceRepository touristPlaceRepository) {
+  public Mutation(UserRepository userRepository, JobRepository jobRepository, SchoolRepository schoolRepository, CollegeRepository collegeRepository, UniversityRepository universityRepository, RestaurantsRepository restaurantsRepository, RestaurantMenuRepository restaurantMenuRepository, ReviewRepository reviewRepository, TouristPlaceRepository touristPlaceRepository, FavouriteItemRepository favouriteItemRepository) {
     this.userRepository = userRepository;
     this.jobRepository = jobRepository;
     this.schoolRepository = schoolRepository;
@@ -48,6 +51,7 @@ public class Mutation implements GraphQLMutationResolver {
     this.restaurantMenuRepository = restaurantMenuRepository;
     this.reviewRepository = reviewRepository;
     this.touristPlaceRepository = touristPlaceRepository;
+    this.favouriteItemRepository = favouriteItemRepository;
   }
 
   public User createUser(String firstName, String lastName, String username, String email, String password, String role, String userType) {
@@ -287,6 +291,70 @@ public class Mutation implements GraphQLMutationResolver {
       touristPlaceRepository.save(touristPlace);
 
       return "Tourist Place successfully added!";
+    }
+  }
+
+  public String addFavouriteItem(String category, String itemId, String userId, String itemName) {
+    FavouriteItems favourite = new FavouriteItems();
+
+    User checkUser = userRepository.findOneById(new ObjectId(userId));
+    Restaurants checkRestaurant = restaurantsRepository.findOneById(new ObjectId(itemId));
+    School checkSchool = schoolRepository.findOneById(new ObjectId(itemId));
+    College checkCollege = collegeRepository.findOneById(new ObjectId(itemId));
+    University checkUniversity = universityRepository.findOneById(new ObjectId(itemId));
+    TouristPlaces checkTouristPlace = touristPlaceRepository.findOneById(new ObjectId(itemId));
+    FavouriteItems checkFavourite = favouriteItemRepository.findByItemId(itemId);
+
+    if (checkUser != null) {
+      if (checkFavourite == null) {
+        if (checkSchool != null) {
+          favourite.setCategory(category);
+          favourite.setItemId(itemId);
+          favourite.setUserId(userId);
+          favourite.setItemName(itemName);
+          favouriteItemRepository.save(favourite);
+
+          return "School successfully added!";
+        } else if (checkCollege != null) {
+          favourite.setCategory(category);
+          favourite.setItemId(itemId);
+          favourite.setUserId(userId);
+          favourite.setItemName(itemName);
+          favouriteItemRepository.save(favourite);
+
+          return "College successfully added!";
+        } else if (checkUniversity != null) {
+          favourite.setCategory(category);
+          favourite.setItemId(itemId);
+          favourite.setUserId(userId);
+          favourite.setItemName(itemName);
+          favouriteItemRepository.save(favourite);
+
+          return "University successfully added!";
+        } else if (checkRestaurant != null) {
+          favourite.setCategory(category);
+          favourite.setItemId(itemId);
+          favourite.setUserId(userId);
+          favourite.setItemName(itemName);
+          favouriteItemRepository.save(favourite);
+
+          return "Restaurant successfully added!";
+        } else if (checkTouristPlace != null) {
+          favourite.setCategory(category);
+          favourite.setItemId(itemId);
+          favourite.setUserId(userId);
+          favourite.setItemName(itemName);
+          favouriteItemRepository.save(favourite);
+
+          return "Tourist Place successfully added!";
+        } else {
+          return "Item doesn't exist!";
+        }
+      } else {
+        return "Item already exists in your favourites!";
+      }
+    } else {
+      return "User doesn't exist!";
     }
   }
 

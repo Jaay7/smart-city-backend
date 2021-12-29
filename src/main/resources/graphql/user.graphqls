@@ -127,6 +127,14 @@ type touristPlaces {
   photosCount: Int
 }
 
+type favouriteItems {
+  id: ID!
+  category: String!
+  itemId: String!
+  userId: String!
+  itemName: String!
+}
+
 type Query {
   findAllUsers: [User]
   findAllSchools: [School]
@@ -135,6 +143,7 @@ type Query {
   findAllColleges: [College]
   findAllRestaurants: [Restaurants]
   findAllTouristPlaces: [touristPlaces]
+  findAllFavouriteItemsByUserId(userId: String): [favouriteItems]
   user(id: String): User
   job(id: String): Job
   school(id: String): School
@@ -285,4 +294,12 @@ type Mutation {
     photos: [String]
     photosCount: Int
   ): String
+
+  addFavouriteItem(
+    category: String!
+    itemId: String!
+    userId: String!
+    itemName: String!
+  ): String
+
 }
