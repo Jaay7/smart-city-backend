@@ -60,5 +60,5 @@
     "EC2"
   ],
   "networkMode": "bridge",
-  "cpu": "450",
+  "cpu": "450"
 }
