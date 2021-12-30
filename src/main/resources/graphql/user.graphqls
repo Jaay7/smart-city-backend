@@ -135,6 +135,8 @@ type favouriteItems {
   itemName: String!
 }
 
+union SearchResults = Job | Restaurants | School | College | University | touristPlaces
+
 type Query {
   findAllUsers: [User]
   findAllSchools: [School]
@@ -167,6 +169,7 @@ type Query {
   getTouristPlacesByCity(city: String) : [touristPlaces]
   getTouristPlacesByState(state: String) : [touristPlaces]
   getTouristPlacesByCountry(country: String) : [touristPlaces]
+  searchResults(val: String): [SearchResults]
 }
 
 type Mutation {

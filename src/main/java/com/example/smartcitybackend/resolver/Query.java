@@ -179,4 +179,17 @@ public class Query implements GraphQLQueryResolver {
     return touristPlaceRepository.findByCountry(country);
   }
 
+  public List<Object> searchResults(String val) {
+    List<Object> results = new ArrayList<>();
+    results.add(jobRepository.find(val));
+    results.add(restaurantsRepository.find(val));
+    results.add(schoolRepository.find(val));
+    results.add(collegeRepository.find(val));
+    results.add(universityRepository.find(val));
+    results.add(touristPlaceRepository.find(val));
+    System.out.println(results);
+
+    return results;
+  }
+
 }
