@@ -24,6 +24,9 @@ public interface RestaurantMenuRepository extends MongoRepository<RestaurantMenu
   @Query("{ 'itemName': { $regex: ?0, $options: 'i' } }")
   Iterable<RestaurantMenu> find(String val);
 
+  @Query("{ 'itemTags': { $all: ?0 } }")
+  Iterable<RestaurantMenu> findByTags(List<String> tags);
+
   @Query("{ 'itemRestaurantId': ?0, 'itemTags': { $all: ?1 } }")
   Iterable<RestaurantMenu> findByItemTags(String id, List<String> tags);
 }

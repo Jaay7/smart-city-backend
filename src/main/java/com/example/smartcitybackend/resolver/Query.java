@@ -159,6 +159,10 @@ public class Query implements GraphQLQueryResolver {
     return restaurantMenuRepository.findByItemTags(id, tags);
   }
 
+  public Iterable<RestaurantMenu> getMenuTags(List<String> tags) {
+    return restaurantMenuRepository.findByTags(tags);
+  }
+
   public Iterable<Restaurants> getRestaurantsByTags(List<String> tags) {
     return restaurantsRepository.findByTags(tags);
   }
