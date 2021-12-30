@@ -1,0 +1,14 @@
+version: '1'
+services:
+  smart-city-backend:
+    container_name: smart-city-backend
+    build:
+      dockerfile: Dockerfile
+    image: smart-city-backend:latest
+    ports:
+      - 8080:8080
+    networks:
+      - spring-cloud-network
+networks:
+  spring-cloud-network:
+    driver: bridge
