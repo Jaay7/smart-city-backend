@@ -98,6 +98,6 @@ jobs:
       uses: aws-actions/amazon-ecs-deploy-task-definition@v1
       with:
         task-definition: ${{ steps.task-def.outputs.task-definition }}
-        service: smart-city-ec2-service
-        cluster: ec2-new-cluster
+        service: smart-city-service
+        cluster: smart-city
         wait-for-service-stability: true
