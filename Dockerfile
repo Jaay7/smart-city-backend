@@ -7,6 +7,7 @@ ARG SECRET_ARG
 ENV AWS_REGION=$REGION_ARG
 ENV AWS_ACCESS_KEY=$ACCESS_ARG
 ENV AWS_SECRET_KEY=$SECRET_ARG
+RUN mkdir -p build/libs
 ARG JAR_FILE=build/libs/\*.jar
 COPY ${JAR_FILE} app.jar/
 ENTRYPOINT [ "java", "-jar", "/app.jar" ]
