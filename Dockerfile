@@ -1,8 +1,16 @@
+FROM amazoncorretto:11-alpine-jdk AS TEMP_BUILD_IMAGE
+ENV APP_HOME=/usr/app/
+WORKDIR $APP_HOME
+COPY build.gradle settings.gradle gradlew $APP_HOME
+COPY gradle $APP_HOME/gradle
+RUN ./gradlew build || return 0 
+COPY . .
+RUN ./gradlew build
+
 FROM amazoncorretto:11-alpine-jdk
-RUN apk --no-cache add curl
-VOLUME /tmp
-RUN pwd
-RUN mkdir -p build/libs
-ARG JAR_FILE=./build/libs/\*.jar
-COPY ${JAR_FILE} app.jar/
-ENTRYPOINT [ "java", "-jar", "/app.jar" ]
+ENV ARTIFACT_NAME=app.jar
+ENV APP_HOME=/usr/app/
+WORKDIR $APP_HOME
+COPY --from=TEMP_BUILD_IMAGE $APP_HOME/build/libs/$ARTIFACT_NAME .
+EXPOSE 8080
+CMD ["java","-jar",$ARTIFACT_NAME]
