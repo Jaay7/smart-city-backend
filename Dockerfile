@@ -8,4 +8,4 @@ RUN chmod +x gradlew
 
 RUN ./gradlew build
 
-CMD ["./gradlew", "bootRun"]
+CMD ["java", "-jar", "build/libs/smartcitybackend.jar"]
