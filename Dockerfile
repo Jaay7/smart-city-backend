@@ -6,6 +6,7 @@ COPY gradle $APP_HOME/gradle
 RUN chmod +x gradlew
 RUN ./gradlew build || return 0 
 COPY . .
+RUN chmod +x gradlew
 RUN ./gradlew build
 
 FROM amazoncorretto:11-alpine-jdk
