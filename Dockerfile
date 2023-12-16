@@ -8,7 +8,7 @@ RUN chmod +x gradlew
 
 RUN ./gradlew build
 
-ARG JAR_FILE=build/libs/\*.jar
+ARG JAR_FILE=build/libs/smartcitybackend-0.0.1-SNAPSHOT.jar
 
 COPY ${JAR_FILE} app.jar/
 
